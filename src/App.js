@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import React, { useState } from "react";
+import "./App.css";
 
-function App() {
+export default function App() {
+  const [text, setText] = useState("");
+  const [msg, setMsg] = useState({ message: ''});
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setText('');
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div onSubmit={handleSubmit}>
+      <div className="msgBox">
+        <input
+          id="text"
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+        />
+        <button type="submit" onSubmit={() => setMsg(text)}>
+          Send
+        </button>
+      </div>
+      <div className="chatBox">
+        <p>{msg}</p>
+      </div>
     </div>
   );
-}
 
-export default App;
+}
